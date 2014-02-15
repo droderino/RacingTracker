@@ -8,6 +8,7 @@ import com.google.android.gms.maps.MapFragment;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
+import android.view.MenuItem;
 
 public class MainActivity extends Activity {
 
@@ -45,4 +46,30 @@ public class MainActivity extends Activity {
 		return true;
 	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		switch(item.getItemId())
+		{
+		case R.id.action_tracking:
+			switchTracking(item);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	private void switchTracking(MenuItem item)
+	{
+		if(!posManager.isTracking())
+		{
+			item.setIcon(getResources().getDrawable(R.drawable.ic_action_stop));
+			posManager.startTracking();
+		}
+		else
+		{
+			item.setIcon(getResources().getDrawable(R.drawable.ic_action_play));
+			posManager.stopTracking();
+		}
+	}
 }
